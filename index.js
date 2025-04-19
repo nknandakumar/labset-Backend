@@ -21,8 +21,8 @@ app.post("/api/explain", async (req, res) => {
   try {
     // Use the latest model name (as of April 2025)
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-
-    const result = await model.generateContent(`Explain this code:\n${code}`);
+    const prompt = `You are an expert programming tutor. Please explain the following code :\n\n${code}\n\nProvide a comprehensive explanation covering what the code does, how it works, key concept.output should be small and concise.Give out in  markdown format.`;
+    const result = await model.generateContent(prompt);
     const explanation = await result.response.text();
     res.json({ explanation });
     console.log("Generated explanation:", explanation);
